@@ -7,7 +7,7 @@ export function NotFoundState({ message = "This screen doesn't exist." }: { mess
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{message}</Text>
-      <Link href="/auth/login" asChild>
+      <Link href="/login" asChild>
         <Pressable accessibilityRole="link" style={styles.link}>
           <Text style={styles.linkText}>Go to login</Text>
         </Pressable>

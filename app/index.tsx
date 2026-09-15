@@ -5,5 +5,5 @@ import { useAuth } from '@/hooks/useAuth';
 export default function IndexScreen() {
   const { isAuthenticated } = useAuth();
 
-  return <Redirect href={isAuthenticated ? '/home' : '/auth/login'} />;
+  return <Redirect href={isAuthenticated ? '/home' : '/login'} />;
 }

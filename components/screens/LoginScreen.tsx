@@ -21,7 +21,7 @@ export default function LoginScreen() {
       <Pressable onPress={handleLogin} style={styles.button}>
         <Text style={styles.buttonText}>Log in</Text>
       </Pressable>
-      <Link href="/auth/register" style={styles.link}>
+      <Link href="/register" style={styles.link}>
         Create an account
       </Link>
     </View>
