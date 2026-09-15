@@ -15,7 +15,10 @@ type LiveRoom = {
 export function LiveCard({ room }: { room: LiveRoom }) {
   return (
     <Link href={`/live/${room.id}`} asChild>
-      <Pressable style={styles.card}>
+      <Pressable
+        accessibilityLabel={`${room.title} hosted by ${room.host}, category ${room.category}, ${room.viewers.toLocaleString()} viewers`}
+        accessibilityRole="link"
+        style={styles.card}>
         <View style={styles.row}>
           <UserAvatar name={room.host} />
           <View style={styles.meta}>

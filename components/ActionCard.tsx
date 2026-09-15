@@ -6,7 +6,7 @@ import { colors } from '@/constants/colors';
 export function ActionCard({ title, description, href }: { title: string; description: string; href: string }) {
   return (
     <Link href={href} asChild>
-      <Pressable style={styles.card}>
+      <Pressable accessibilityLabel={`${title}. ${description}`} accessibilityRole="link" style={styles.card}>
         <View style={styles.content}>
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.description}>{description}</Text>

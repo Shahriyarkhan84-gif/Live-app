@@ -4,7 +4,7 @@ import { colors } from '@/constants/colors';
 
 export function GiftButton({ label }: { label: string }) {
   return (
-    <Pressable style={styles.button}>
+    <Pressable accessibilityLabel={label} accessibilityRole="button" style={styles.button}>
       <Text style={styles.text}>🎁 {label}</Text>
     </Pressable>
   );
