@@ -1,5 +1,5 @@
 import { Link } from 'expo-router';
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { colors } from '@/constants/colors';
 import { UserAvatar } from '@/components/UserAvatar';
@@ -15,7 +15,7 @@ type LiveRoom = {
 export function LiveCard({ room }: { room: LiveRoom }) {
   return (
     <Link href={`/live/${room.id}`} asChild>
-      <View style={styles.card}>
+      <Pressable style={styles.card}>
         <View style={styles.row}>
           <UserAvatar name={room.host} />
           <View style={styles.meta}>
@@ -25,7 +25,7 @@ export function LiveCard({ room }: { room: LiveRoom }) {
           <Text style={styles.badge}>{room.category}</Text>
         </View>
         <Text style={styles.footer}>{room.viewers.toLocaleString()} viewers watching now</Text>
-      </View>
+      </Pressable>
     </Link>
   );
 }

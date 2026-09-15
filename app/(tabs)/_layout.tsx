@@ -4,11 +4,11 @@ import { Tabs } from 'expo-router';
 import { colors } from '@/constants/colors';
 
 const TAB_ICONS = {
-  index: 'house.fill',
-  discover: 'sparkles',
-  create: 'plus.square.fill',
-  messages: 'message.fill',
-  profile: 'person.fill',
+  index: { ios: 'house.fill', android: 'home', web: 'home' },
+  discover: { ios: 'sparkles', android: 'search', web: 'search' },
+  create: { ios: 'plus.square.fill', android: 'add_box', web: 'add_box' },
+  messages: { ios: 'message.fill', android: 'chat', web: 'chat' },
+  profile: { ios: 'person.fill', android: 'person', web: 'person' },
 } as const;
 
 export default function TabLayout() {

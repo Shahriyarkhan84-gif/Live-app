@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useSyncExternalStore } from 'react';
 
 const demoUser = {
   name: 'Avery Stone',
@@ -7,15 +7,36 @@ const demoUser = {
   earnings: '1,240',
 };
 
+let isAuthenticatedState = false;
+const listeners = new Set<() => void>();
+
+function emitChange() {
+  listeners.forEach((listener) => listener());
+}
+
+function setAuthenticated(nextValue: boolean) {
+  isAuthenticatedState = nextValue;
+  emitChange();
+}
+
+function subscribe(listener: () => void) {
+  listeners.add(listener);
+  return () => listeners.delete(listener);
+}
+
+function getSnapshot() {
+  return isAuthenticatedState;
+}
+
 export function useAuth() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const isAuthenticated = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
 
   return useMemo(
     () => ({
       isAuthenticated,
       currentUser: demoUser,
-      signIn: () => setIsAuthenticated(true),
-      signOut: () => setIsAuthenticated(false),
+      signIn: () => setAuthenticated(true),
+      signOut: () => setAuthenticated(false),
     }),
     [isAuthenticated],
   );

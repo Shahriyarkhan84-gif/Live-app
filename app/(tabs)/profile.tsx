@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { Header } from '@/components/Header';
@@ -7,6 +8,10 @@ import { useAuth } from '@/hooks/useAuth';
 
 export default function ProfileScreen() {
   const { currentUser, signOut } = useAuth();
+  const handleSignOut = () => {
+    signOut();
+    router.replace('/(auth)/login');
+  };
 
   return (
     <View style={styles.screen}>
@@ -17,7 +22,7 @@ export default function ProfileScreen() {
         <Text style={styles.handle}>{currentUser.handle}</Text>
         <Text style={styles.meta}>Followers: {currentUser.followers}</Text>
         <Text style={styles.meta}>Earnings: ${currentUser.earnings}</Text>
-        <Pressable onPress={signOut} style={styles.button}>
+        <Pressable onPress={handleSignOut} style={styles.button}>
           <Text style={styles.buttonText}>Sign out</Text>
         </Pressable>
       </View>
