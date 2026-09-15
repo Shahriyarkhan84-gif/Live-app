@@ -22,7 +22,7 @@ export default function RegisterScreen() {
       <Pressable onPress={handleRegister} style={styles.button}>
         <Text style={styles.buttonText}>Register</Text>
       </Pressable>
-      <Link href="/(auth)/login" style={styles.link}>
+      <Link href="/login" style={styles.link}>
         Already have an account?
       </Link>
     </View>
