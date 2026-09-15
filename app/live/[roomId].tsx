@@ -24,7 +24,7 @@ export default function LiveRoomScreen() {
   const room = getRoomById(roomId ?? '');
 
   if (!room) {
-    return <Redirect href="/+not-found" />;
+    return <Redirect href="/discover" />;
   }
 
   return (
