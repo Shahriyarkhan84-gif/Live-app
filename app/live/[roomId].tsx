@@ -1,9 +1,10 @@
-import { Redirect, Stack, useLocalSearchParams } from 'expo-router';
+import { Stack, useLocalSearchParams } from 'expo-router';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { ChatBox } from '@/components/ChatBox';
 import { GiftButton } from '@/components/GiftButton';
 import { InfoListCard } from '@/components/InfoListCard';
+import { NotFoundState } from '@/components/NotFoundState';
 import { StatCard } from '@/components/StatCard';
 import { VideoPlayer } from '@/components/VideoPlayer';
 import { colors } from '@/constants/colors';
@@ -24,7 +25,12 @@ export default function LiveRoomScreen() {
   const room = getRoomById(roomId ?? '');
 
   if (!room) {
-    return <Redirect href="/home" />;
+    return (
+      <>
+        <Stack.Screen options={{ headerShown: true, title: 'Room not found' }} />
+        <NotFoundState message="This live room is unavailable." />
+      </>
+    );
   }
 
   return (

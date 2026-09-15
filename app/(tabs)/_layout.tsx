@@ -21,14 +21,16 @@ export default function TabLayout() {
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.muted,
         tabBarIcon: ({ color }) => (
-          <Text style={{ color, fontSize: 18 }}>{TAB_ICONS[route.name as keyof typeof TAB_ICONS]}</Text>
+          <Text accessible={false} style={{ color, fontSize: 18 }}>
+            {TAB_ICONS[route.name as keyof typeof TAB_ICONS]}
+          </Text>
         ),
       })}>
-      <Tabs.Screen name="index" options={{ title: 'Home' }} />
-      <Tabs.Screen name="discover" options={{ title: 'Discover' }} />
-      <Tabs.Screen name="create" options={{ title: 'Create' }} />
-      <Tabs.Screen name="messages" options={{ title: 'Messages' }} />
-      <Tabs.Screen name="profile" options={{ title: 'Profile' }} />
+      <Tabs.Screen name="index" options={{ title: 'Home', tabBarAccessibilityLabel: 'Home tab' }} />
+      <Tabs.Screen name="discover" options={{ title: 'Discover', tabBarAccessibilityLabel: 'Discover tab' }} />
+      <Tabs.Screen name="create" options={{ title: 'Create', tabBarAccessibilityLabel: 'Create tab' }} />
+      <Tabs.Screen name="messages" options={{ title: 'Messages', tabBarAccessibilityLabel: 'Messages tab' }} />
+      <Tabs.Screen name="profile" options={{ title: 'Profile', tabBarAccessibilityLabel: 'Profile tab' }} />
     </Tabs>
   );
 }
