@@ -9,7 +9,7 @@ export default function RegisterScreen() {
 
   const handleRegister = () => {
     signIn();
-    router.replace('/(tabs)');
+    router.replace('/(tabs)/index');
   };
 
   return (
