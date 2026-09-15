@@ -9,7 +9,7 @@ export default function LoginScreen() {
 
   const handleLogin = () => {
     signIn();
-    router.replace('/(tabs)');
+    router.replace('/home');
   };
 
   return (

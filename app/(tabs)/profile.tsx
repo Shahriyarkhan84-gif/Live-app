@@ -38,7 +38,7 @@ export default function ProfileScreen() {
           </View>
         ))}
       </View>
-      <ActionCard title="Creator dashboard" description="Open earnings, live-hour, and payout summaries." href="/creator-dashboard" />
+      <ActionCard title="Creator dashboard" description="Open earnings, live-hours, and payout summaries." href="/creator-dashboard" />
       <ActionCard title="Wallet" description="Review balances, purchases, gifts, and withdrawals." href="/wallet" />
       <ActionCard title="Notifications" description="Check follower, gift, and system alerts." href="/notifications" />
       <ActionCard title="Settings" description="Inspect security, permissions, and moderation preferences." href="/settings" />
