@@ -1,5 +1,5 @@
 import { Link, Stack } from 'expo-router';
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { colors } from '@/constants/colors';
 
@@ -10,8 +10,10 @@ export default function NotFoundScreen() {
       <View style={styles.container}>
         <Text style={styles.title}>This screen doesn't exist.</Text>
 
-        <Link href="/auth/login" style={[styles.link, styles.linkText]}>
-          Go to login
+        <Link href="/auth/login" asChild>
+          <Pressable style={styles.link}>
+            <Text style={styles.linkText}>Go to login</Text>
+          </Pressable>
         </Link>
       </View>
     </>
