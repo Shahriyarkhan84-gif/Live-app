@@ -1,14 +1,14 @@
-import { SymbolView } from 'expo-symbols';
 import { Tabs } from 'expo-router';
+import { Text } from 'react-native';
 
 import { colors } from '@/constants/colors';
 
 const TAB_ICONS = {
-  index: { ios: 'house.fill', android: 'home', web: 'home' },
-  discover: { ios: 'sparkles', android: 'search', web: 'search' },
-  create: { ios: 'plus.square.fill', android: 'add_box', web: 'add_box' },
-  messages: { ios: 'message.fill', android: 'chat', web: 'chat' },
-  profile: { ios: 'person.fill', android: 'person', web: 'person' },
+  index: '🏠',
+  discover: '🔎',
+  create: '🎥',
+  messages: '💬',
+  profile: '👤',
 } as const;
 
 export default function TabLayout() {
@@ -21,7 +21,7 @@ export default function TabLayout() {
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.muted,
         tabBarIcon: ({ color }) => (
-          <SymbolView name={TAB_ICONS[route.name as keyof typeof TAB_ICONS]} size={22} tintColor={color} />
+          <Text style={{ color, fontSize: 18 }}>{TAB_ICONS[route.name as keyof typeof TAB_ICONS]}</Text>
         ),
       })}>
       <Tabs.Screen name="index" options={{ title: 'Home' }} />
