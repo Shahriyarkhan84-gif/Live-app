@@ -1,16 +1,19 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
+import { ActionCard } from '@/components/ActionCard';
 import { Header } from '@/components/Header';
-import { LiveCard } from '@/components/LiveCard';
+import { LessonTimeline } from '@/components/LessonTimeline';
 import { colors } from '@/constants/colors';
 import { useLiveRoom } from '@/hooks/useLiveRoom';
+import { usePlatformData } from '@/hooks/usePlatformData';
 
 export default function DiscoverScreen() {
-  const { featuredRooms, categories } = useLiveRoom();
+  const { categories } = useLiveRoom();
+  const { lessonRoadmap, quickActions } = usePlatformData();
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
-      <Header title="Discover" subtitle="Browse live rooms by topic" />
+      <Header title="Discover the platform" subtitle="Explore the twenty lessons that shape product, backend, safety, and growth." />
       <View style={styles.categoryRow}>
         {categories.map((category) => (
           <View key={category} style={styles.categoryPill}>
@@ -18,9 +21,17 @@ export default function DiscoverScreen() {
           </View>
         ))}
       </View>
-      {featuredRooms.map((room) => (
-        <LiveCard key={room.id} room={room} />
-      ))}
+      <ActionCard title="Search, ranking, and recommendations" description="Open the discovery workbench for categories, creator search, and live feed signals." href="/search" />
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Full lesson map</Text>
+        <LessonTimeline lessons={lessonRoadmap} />
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Connected workflows</Text>
+        {quickActions.slice(0, 3).map((action) => (
+          <ActionCard key={action.title} title={action.title} description={action.description} href={action.href} />
+        ))}
+      </View>
     </ScrollView>
   );
 }
@@ -32,7 +43,15 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
-    gap: 16,
+    gap: 18,
+  },
+  section: {
+    gap: 14,
+  },
+  sectionTitle: {
+    color: colors.text,
+    fontSize: 22,
+    fontWeight: '700',
   },
   categoryRow: {
     flexDirection: 'row',
