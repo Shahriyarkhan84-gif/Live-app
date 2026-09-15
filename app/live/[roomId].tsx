@@ -1,4 +1,4 @@
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { Redirect, Stack, useLocalSearchParams } from 'expo-router';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { ChatBox } from '@/components/ChatBox';
@@ -14,10 +14,14 @@ export default function LiveRoomScreen() {
   const { messages } = useChat();
   const room = getRoomById(roomId ?? '');
 
+  if (!room) {
+    return <Redirect href="/+not-found" />;
+  }
+
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
-      <Stack.Screen options={{ title: room?.title ?? 'Live room' }} />
-      <VideoPlayer title={room?.title ?? 'Stream preview'} host={room?.host ?? 'Unknown host'} viewers={room?.viewers ?? 0} />
+      <Stack.Screen options={{ title: room.title }} />
+      <VideoPlayer title={room.title} host={room.host} viewers={room.viewers} />
       <View style={styles.section}>
         <Text style={styles.heading}>Live chat</Text>
         <ChatBox messages={messages} />
