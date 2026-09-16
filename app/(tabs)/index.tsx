@@ -16,6 +16,13 @@ export default function HomeScreen() {
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
       <Header title="BIGO-style live platform" subtitle="Prototype the app, operations, and monetization layers in one Expo experience." />
+      <View style={styles.heroCard}>
+        <View style={styles.heroCopy}>
+          <Text style={styles.heroEyebrow}>Featured experience</Text>
+          <Text style={styles.heroTitle}>Design a premium creator and viewer journey.</Text>
+          <Text style={styles.heroText}>Explore bold cards, stronger hierarchy, and a more modern dark interface across discovery, streaming, and creator tools.</Text>
+        </View>
+      </View>
       <View style={styles.metricsRow}>
         {platformMetrics.map((metric) => (
           <StatCard key={metric.label} label={metric.label} value={metric.value} tone={metric.tone} />
@@ -48,7 +55,35 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
-    gap: 20,
+    paddingBottom: 120,
+    gap: 22,
+  },
+  heroCard: {
+    borderRadius: 28,
+    borderWidth: 1,
+    borderColor: colors.border,
+    backgroundColor: colors.cardAlt,
+    padding: 22,
+  },
+  heroCopy: {
+    gap: 10,
+  },
+  heroEyebrow: {
+    color: colors.accentSoft,
+    fontSize: 12,
+    fontWeight: '800',
+    letterSpacing: 1,
+    textTransform: 'uppercase',
+  },
+  heroTitle: {
+    color: colors.text,
+    fontSize: 28,
+    fontWeight: '800',
+    letterSpacing: -0.8,
+  },
+  heroText: {
+    color: colors.muted,
+    lineHeight: 22,
   },
   metricsRow: {
     flexDirection: 'row',
@@ -61,6 +96,6 @@ const styles = StyleSheet.create({
   sectionTitle: {
     color: colors.text,
     fontSize: 22,
-    fontWeight: '700',
+    fontWeight: '800',
   },
 });

@@ -55,13 +55,16 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
+    paddingBottom: 120,
     gap: 18,
   },
   card: {
     alignItems: 'center',
     gap: 10,
-    borderRadius: 20,
-    backgroundColor: colors.card,
+    borderRadius: 28,
+    borderWidth: 1,
+    borderColor: colors.border,
+    backgroundColor: colors.cardAlt,
     padding: 24,
   },
   name: {
@@ -80,13 +83,13 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 12,
     backgroundColor: colors.primary,
-    borderRadius: 14,
+    borderRadius: 16,
     paddingHorizontal: 20,
     paddingVertical: 12,
   },
   buttonText: {
-    color: colors.background,
-    fontWeight: '700',
+    color: colors.text,
+    fontWeight: '800',
   },
   metricSection: {
     flexDirection: 'row',
@@ -96,7 +99,9 @@ const styles = StyleSheet.create({
   metricCard: {
     flex: 1,
     minWidth: 140,
-    borderRadius: 18,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: colors.border,
     backgroundColor: colors.card,
     padding: 16,
     gap: 8,

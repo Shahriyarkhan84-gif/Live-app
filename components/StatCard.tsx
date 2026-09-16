@@ -11,6 +11,7 @@ const toneMap = {
 export function StatCard({ label, value, tone = 'primary' }: { label: string; value: string; tone?: keyof typeof toneMap }) {
   return (
     <View style={styles.card}>
+      <View style={[styles.glow, { backgroundColor: toneMap[tone] }]} />
       <Text style={styles.label}>{label}</Text>
       <Text style={[styles.value, { color: toneMap[tone] }]}>{value}</Text>
     </View>
@@ -21,17 +22,32 @@ const styles = StyleSheet.create({
   card: {
     flex: 1,
     minWidth: 140,
-    gap: 8,
-    borderRadius: 18,
+    gap: 10,
+    overflow: 'hidden',
+    borderRadius: 22,
+    borderWidth: 1,
+    borderColor: colors.border,
     backgroundColor: colors.card,
-    padding: 16,
+    padding: 18,
+  },
+  glow: {
+    position: 'absolute',
+    right: -16,
+    top: -16,
+    width: 72,
+    height: 72,
+    borderRadius: 36,
+    opacity: 0.16,
   },
   label: {
     color: colors.muted,
-    fontSize: 13,
+    fontSize: 12,
+    fontWeight: '700',
+    letterSpacing: 0.5,
+    textTransform: 'uppercase',
   },
   value: {
-    fontSize: 24,
-    fontWeight: '700',
+    fontSize: 28,
+    fontWeight: '800',
   },
 });

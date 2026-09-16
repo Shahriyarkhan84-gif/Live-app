@@ -17,7 +17,25 @@ export default function TabLayout() {
       screenOptions={({ route }) => ({
         headerStyle: { backgroundColor: colors.background },
         headerTintColor: colors.text,
-        tabBarStyle: { backgroundColor: colors.card, borderTopColor: colors.border },
+        sceneStyle: { backgroundColor: colors.background },
+        tabBarStyle: {
+          position: 'absolute',
+          left: 16,
+          right: 16,
+          bottom: 18,
+          height: 72,
+          borderTopWidth: 0,
+          borderWidth: 1,
+          borderColor: colors.border,
+          borderRadius: 24,
+          backgroundColor: colors.cardAlt,
+          paddingTop: 10,
+          paddingBottom: 10,
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: '700',
+        },
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.muted,
         tabBarIcon: ({ color }) => (

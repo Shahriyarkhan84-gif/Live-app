@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
-    gap: 16,
+    paddingBottom: 40,
+    gap: 18,
   },
   metricsRow: {
     flexDirection: 'row',
@@ -72,6 +73,6 @@ const styles = StyleSheet.create({
   heading: {
     color: colors.text,
     fontSize: 22,
-    fontWeight: '700',
+    fontWeight: '800',
   },
 });

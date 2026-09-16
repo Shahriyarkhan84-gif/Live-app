@@ -11,13 +11,20 @@ export function UserAvatar({ name, size = 48 }: { name: string; size?: number })
     .toUpperCase();
 
   return (
-    <View style={[styles.avatar, { width: size, height: size, borderRadius: size / 2 }]}>
-      <Text style={[styles.text, { fontSize: size / 2.5 }]}>{initials}</Text>
+    <View style={[styles.ring, { width: size + 8, height: size + 8, borderRadius: (size + 8) / 2 }]}>
+      <View style={[styles.avatar, { width: size, height: size, borderRadius: size / 2 }]}>
+        <Text style={[styles.text, { fontSize: size / 2.5 }]}>{initials}</Text>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  ring: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(139, 92, 246, 0.14)',
+  },
   avatar: {
     alignItems: 'center',
     justifyContent: 'center',

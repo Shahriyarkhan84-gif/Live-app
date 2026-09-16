@@ -21,6 +21,10 @@ export default function DiscoverScreen() {
           </View>
         ))}
       </View>
+      <View style={styles.featureCard}>
+        <Text style={styles.featureEyebrow}>Discovery design</Text>
+        <Text style={styles.featureTitle}>Balance personalization, freshness, and creator quality.</Text>
+      </View>
       <ActionCard title="Search, ranking, and recommendations" description="Open the discovery workbench for categories, creator search, and live feed signals." href="/search" />
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Full lesson map</Text>
@@ -43,6 +47,7 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
+    paddingBottom: 120,
     gap: 18,
   },
   section: {
@@ -51,7 +56,28 @@ const styles = StyleSheet.create({
   sectionTitle: {
     color: colors.text,
     fontSize: 22,
-    fontWeight: '700',
+    fontWeight: '800',
+  },
+  featureCard: {
+    borderRadius: 26,
+    borderWidth: 1,
+    borderColor: colors.border,
+    backgroundColor: colors.cardAlt,
+    padding: 20,
+    gap: 8,
+  },
+  featureEyebrow: {
+    color: colors.primarySoft,
+    fontSize: 12,
+    fontWeight: '800',
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+  },
+  featureTitle: {
+    color: colors.text,
+    fontSize: 24,
+    fontWeight: '800',
+    letterSpacing: -0.6,
   },
   categoryRow: {
     flexDirection: 'row',
@@ -62,7 +88,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 10,
     borderRadius: 999,
-    backgroundColor: colors.card,
+    backgroundColor: colors.cardAlt,
     borderWidth: 1,
     borderColor: colors.border,
   },

@@ -19,6 +19,13 @@ export function LiveCard({ room }: { room: LiveRoom }) {
         accessibilityLabel={`${room.title} hosted by ${room.host}, category ${room.category}, ${room.viewers.toLocaleString()} viewers`}
         accessibilityRole="link"
         style={styles.card}>
+        <View style={styles.preview}>
+          <View style={styles.previewTopRow}>
+            <Text style={styles.livePill}>LIVE</Text>
+            <Text style={styles.viewerPill}>{room.viewers.toLocaleString()} watching</Text>
+          </View>
+          <Text style={styles.previewLabel}>{room.category}</Text>
+        </View>
         <View style={styles.row}>
           <UserAvatar name={room.host} />
           <View style={styles.meta}>
@@ -35,10 +42,51 @@ export function LiveCard({ room }: { room: LiveRoom }) {
 
 const styles = StyleSheet.create({
   card: {
-    gap: 14,
-    borderRadius: 20,
+    gap: 16,
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: colors.border,
     backgroundColor: colors.card,
-    padding: 18,
+    overflow: 'hidden',
+    padding: 16,
+  },
+  preview: {
+    height: 148,
+    borderRadius: 18,
+    backgroundColor: colors.backgroundSoft,
+    padding: 16,
+    justifyContent: 'space-between',
+  },
+  previewTopRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  livePill: {
+    alignSelf: 'flex-start',
+    paddingHorizontal: 12,
+    paddingVertical: 7,
+    borderRadius: 999,
+    backgroundColor: colors.danger,
+    color: colors.text,
+    fontSize: 12,
+    fontWeight: '800',
+    letterSpacing: 0.5,
+  },
+  viewerPill: {
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 999,
+    backgroundColor: colors.overlay,
+    color: colors.text,
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  previewLabel: {
+    color: colors.accentSoft,
+    fontSize: 22,
+    fontWeight: '800',
+    letterSpacing: -0.4,
   },
   row: {
     flexDirection: 'row',
@@ -51,17 +99,23 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.text,
-    fontSize: 17,
-    fontWeight: '700',
+    fontSize: 18,
+    fontWeight: '800',
   },
   subtitle: {
     color: colors.muted,
   },
   badge: {
-    color: colors.accent,
+    color: colors.primarySoft,
+    backgroundColor: 'rgba(139, 92, 246, 0.12)',
+    overflow: 'hidden',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 999,
     fontWeight: '700',
   },
   footer: {
     color: colors.muted,
+    fontSize: 13,
   },
 });

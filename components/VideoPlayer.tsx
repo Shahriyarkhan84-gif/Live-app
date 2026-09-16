@@ -6,8 +6,14 @@ export function VideoPlayer({ title, host, viewers }: { title: string; host: str
   return (
     <View style={styles.container}>
       <View style={styles.videoArea}>
-        <Text style={styles.liveBadge}>LIVE</Text>
-        <Text style={styles.preview}>Video stream preview</Text>
+        <View style={styles.topRow}>
+          <Text style={styles.liveBadge}>LIVE</Text>
+          <Text style={styles.viewerBadge}>{viewers.toLocaleString()} viewers</Text>
+        </View>
+        <View style={styles.centerCopy}>
+          <Text style={styles.previewEyebrow}>Realtime video pipeline</Text>
+          <Text style={styles.preview}>Camera → ingest → media cluster → CDN</Text>
+        </View>
       </View>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.meta}>
@@ -19,14 +25,21 @@ export function VideoPlayer({ title, host, viewers }: { title: string; host: str
 
 const styles = StyleSheet.create({
   container: {
-    gap: 10,
+    gap: 12,
   },
   videoArea: {
-    height: 220,
-    borderRadius: 24,
-    backgroundColor: '#111827',
-    padding: 16,
+    height: 240,
+    borderRadius: 28,
+    borderWidth: 1,
+    borderColor: colors.border,
+    backgroundColor: colors.backgroundSoft,
+    padding: 18,
     justifyContent: 'space-between',
+  },
+  topRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   liveBadge: {
     alignSelf: 'flex-start',
@@ -36,16 +49,40 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     paddingHorizontal: 10,
     paddingVertical: 6,
+    fontWeight: '800',
+    letterSpacing: 0.5,
+  },
+  viewerBadge: {
+    backgroundColor: colors.overlay,
+    color: colors.text,
+    borderRadius: 999,
+    overflow: 'hidden',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
     fontWeight: '700',
   },
+  centerCopy: {
+    gap: 8,
+    alignItems: 'center',
+  },
+  previewEyebrow: {
+    color: colors.accentSoft,
+    fontSize: 13,
+    fontWeight: '700',
+    letterSpacing: 0.6,
+    textTransform: 'uppercase',
+  },
   preview: {
-    color: colors.muted,
+    color: colors.text,
     textAlign: 'center',
+    fontSize: 22,
+    fontWeight: '800',
+    letterSpacing: -0.4,
   },
   title: {
     color: colors.text,
     fontSize: 24,
-    fontWeight: '700',
+    fontWeight: '800',
   },
   meta: {
     color: colors.muted,

@@ -25,15 +25,17 @@ export function InfoListCard({ title, items }: { title: string; items: ActivityI
 
 const styles = StyleSheet.create({
   card: {
-    gap: 14,
-    borderRadius: 20,
+    gap: 16,
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: colors.border,
     backgroundColor: colors.card,
-    padding: 18,
+    padding: 20,
   },
   title: {
     color: colors.text,
     fontSize: 20,
-    fontWeight: '700',
+    fontWeight: '800',
   },
   list: {
     gap: 14,
@@ -41,6 +43,9 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     gap: 12,
+    borderRadius: 18,
+    backgroundColor: colors.overlay,
+    padding: 14,
   },
   dot: {
     width: 10,
@@ -55,7 +60,7 @@ const styles = StyleSheet.create({
   },
   itemTitle: {
     color: colors.text,
-    fontWeight: '700',
+    fontWeight: '800',
   },
   detail: {
     color: colors.muted,
