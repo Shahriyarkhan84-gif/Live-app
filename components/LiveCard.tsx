@@ -1,40 +1,42 @@
 import { Link } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { colors } from '@/constants/colors';
+import { LiveBadge } from '@/components/LiveBadge';
 import { UserAvatar } from '@/components/UserAvatar';
+import type { LiveHost } from '@/constants/architecture';
+import { colors } from '@/constants/colors';
 
-type LiveRoom = {
-  id: string;
-  title: string;
-  host: string;
-  category: string;
-  viewers: number;
-};
-
-export function LiveCard({ room }: { room: LiveRoom }) {
+export function LiveCard({ room }: { room: LiveHost }) {
   return (
     <Link href={`/live/${room.id}`} asChild>
       <Pressable
-        accessibilityLabel={`${room.title} hosted by ${room.host}, category ${room.category}, ${room.viewers.toLocaleString()} viewers`}
+        accessibilityLabel={`${room.hostName} live in ${room.countryName}, ${room.category}, ${room.viewerCount.toLocaleString()} viewers`}
         accessibilityRole="link"
         style={styles.card}>
-        <View style={styles.preview}>
+        <View style={[styles.preview, { backgroundColor: room.thumbnailTone }]}>
           <View style={styles.previewTopRow}>
-            <Text style={styles.livePill}>LIVE</Text>
-            <Text style={styles.viewerPill}>{room.viewers.toLocaleString()} watching</Text>
+            <LiveBadge />
+            <Text style={styles.viewerPill}>{room.viewerCount.toLocaleString()} viewers</Text>
           </View>
-          <Text style={styles.previewLabel}>{room.category}</Text>
+          <View style={styles.previewBottom}>
+            <Text style={styles.countryText}>
+              {room.countryFlag} {room.countryName}
+            </Text>
+            <Text style={styles.previewTitle}>{room.title}</Text>
+          </View>
         </View>
         <View style={styles.row}>
-          <UserAvatar name={room.host} />
+          <UserAvatar name={room.hostName} />
           <View style={styles.meta}>
-            <Text style={styles.title}>{room.title}</Text>
-            <Text style={styles.subtitle}>{room.host}</Text>
+            <Text style={styles.title}>{room.hostName}</Text>
+            <Text style={styles.subtitle}>
+              {room.category} · {room.liveDuration}
+            </Text>
           </View>
-          <Text style={styles.badge}>{room.category}</Text>
+          <View style={styles.followButton}>
+            <Text style={styles.followText}>{room.isFollowing ? 'Following' : 'Follow'}</Text>
+          </View>
         </View>
-        <Text style={styles.footer}>{room.viewers.toLocaleString()} viewers watching now</Text>
       </Pressable>
     </Link>
   );
@@ -43,7 +45,7 @@ export function LiveCard({ room }: { room: LiveRoom }) {
 const styles = StyleSheet.create({
   card: {
     gap: 16,
-    borderRadius: 24,
+    borderRadius: 26,
     borderWidth: 1,
     borderColor: colors.border,
     backgroundColor: colors.card,
@@ -51,9 +53,8 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   preview: {
-    height: 148,
-    borderRadius: 18,
-    backgroundColor: colors.backgroundSoft,
+    height: 168,
+    borderRadius: 20,
     padding: 16,
     justifyContent: 'space-between',
   },
@@ -62,31 +63,29 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  livePill: {
-    alignSelf: 'flex-start',
+  viewerPill: {
+    borderRadius: 999,
+    backgroundColor: 'rgba(7, 11, 20, 0.35)',
+    color: colors.text,
+    overflow: 'hidden',
     paddingHorizontal: 12,
     paddingVertical: 7,
-    borderRadius: 999,
-    backgroundColor: colors.danger,
-    color: colors.text,
-    fontSize: 12,
-    fontWeight: '800',
-    letterSpacing: 0.5,
-  },
-  viewerPill: {
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderRadius: 999,
-    backgroundColor: colors.overlay,
-    color: colors.text,
     fontSize: 12,
     fontWeight: '700',
   },
-  previewLabel: {
-    color: colors.accentSoft,
-    fontSize: 22,
+  previewBottom: {
+    gap: 6,
+  },
+  countryText: {
+    color: colors.text,
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  previewTitle: {
+    color: colors.text,
+    fontSize: 24,
     fontWeight: '800',
-    letterSpacing: -0.4,
+    letterSpacing: -0.5,
   },
   row: {
     flexDirection: 'row',
@@ -99,23 +98,22 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.text,
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '800',
   },
   subtitle: {
     color: colors.muted,
-  },
-  badge: {
-    color: colors.primarySoft,
-    backgroundColor: 'rgba(139, 92, 246, 0.12)',
-    overflow: 'hidden',
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderRadius: 999,
-    fontWeight: '700',
-  },
-  footer: {
-    color: colors.muted,
     fontSize: 13,
+  },
+  followButton: {
+    borderRadius: 999,
+    backgroundColor: colors.overlay,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+  },
+  followText: {
+    color: colors.accentSoft,
+    fontSize: 12,
+    fontWeight: '800',
   },
 });

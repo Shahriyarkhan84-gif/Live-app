@@ -1,43 +1,15 @@
-import { useMemo, useSyncExternalStore } from 'react';
-
-const demoUser = {
-  name: 'Avery Stone',
-  handle: '@averystreams',
-  followers: '18.4K',
-  earnings: '1,240',
-};
-
-let isAuthenticatedState = false;
-const listeners = new Set<() => void>();
-
-function emitChange() {
-  listeners.forEach((listener) => listener());
-}
-
-function setAuthenticated(nextValue: boolean) {
-  isAuthenticatedState = nextValue;
-  emitChange();
-}
-
-function subscribe(listener: () => void) {
-  listeners.add(listener);
-  return () => listeners.delete(listener);
-}
-
-function getSnapshot() {
-  return isAuthenticatedState;
-}
+import { useAppStore } from '@/stores/appStore';
 
 export function useAuth() {
-  const isAuthenticated = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
+  const isAuthenticated = useAppStore((state) => state.isAuthenticated);
+  const currentUser = useAppStore((state) => state.currentUser);
+  const signIn = useAppStore((state) => state.signIn);
+  const signOut = useAppStore((state) => state.signOut);
 
-  return useMemo(
-    () => ({
-      isAuthenticated,
-      currentUser: demoUser,
-      signIn: () => setAuthenticated(true),
-      signOut: () => setAuthenticated(false),
-    }),
-    [isAuthenticated],
-  );
+  return {
+    isAuthenticated,
+    currentUser,
+    signIn,
+    signOut,
+  };
 }

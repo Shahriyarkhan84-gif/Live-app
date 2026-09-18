@@ -5,7 +5,7 @@ import { colors } from '@/constants/colors';
 export function GiftButton({ label }: { label: string }) {
   return (
     <Pressable accessibilityLabel={label} accessibilityRole="button" style={styles.button}>
-      <Text style={styles.text}>🎁 {label}</Text>
+      <Text style={styles.text}>✦ {label}</Text>
     </Pressable>
   );
 }
@@ -13,13 +13,18 @@ export function GiftButton({ label }: { label: string }) {
 const styles = StyleSheet.create({
   button: {
     alignSelf: 'flex-start',
-    backgroundColor: colors.accent,
     borderRadius: 999,
-    paddingHorizontal: 16,
+    backgroundColor: colors.accent,
+    paddingHorizontal: 18,
     paddingVertical: 12,
+    shadowColor: colors.accent,
+    shadowOpacity: 0.24,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 4,
   },
   text: {
     color: colors.background,
-    fontWeight: '700',
+    fontWeight: '800',
   },
 });

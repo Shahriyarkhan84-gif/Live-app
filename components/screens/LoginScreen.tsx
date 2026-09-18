@@ -1,6 +1,7 @@
 import { Link, router } from 'expo-router';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
+import { brand } from '@/constants/architecture';
 import { colors } from '@/constants/colors';
 import { useAuth } from '@/hooks/useAuth';
 
@@ -14,36 +15,41 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.hero}>
-        <View style={styles.glowPrimary} />
-        <View style={styles.glowAccent} />
-        <Text style={styles.eyebrow}>LIVE • CHAT • GIFTS</Text>
-        <Text style={styles.title}>A modern streaming UI for creators and viewers.</Text>
-        <Text style={styles.subtitle}>Sign in to explore discovery feeds, live rooms, gifting flows, and creator operations.</Text>
-        <View style={styles.statRow}>
-          <View style={styles.statPill}>
-            <Text style={styles.statValue}>20</Text>
-            <Text style={styles.statLabel}>Lessons</Text>
-          </View>
-          <View style={styles.statPill}>
-            <Text style={styles.statValue}>12</Text>
-            <Text style={styles.statLabel}>Services</Text>
-          </View>
-          <View style={styles.statPill}>
-            <Text style={styles.statValue}>24/7</Text>
-            <Text style={styles.statLabel}>Live Ops</Text>
-          </View>
+      <View style={styles.heroCard}>
+        <View style={styles.logoWrap}>
+          <View style={styles.logoInner} />
+        </View>
+        <Text style={styles.appName}>{brand.name}</Text>
+        <Text style={styles.tagline}>{brand.tagline}</Text>
+        <Text style={styles.copy}>An original premium blue social broadcasting app for watching, connecting, and going live worldwide.</Text>
+      </View>
+
+      <View style={styles.actionCard}>
+        <Pressable onPress={handleLogin} style={styles.secondaryButton}>
+          <Text style={styles.secondaryButtonText}>Continue with Apple</Text>
+        </Pressable>
+        <Pressable onPress={handleLogin} style={styles.secondaryButton}>
+          <Text style={styles.secondaryButtonText}>Continue with Google</Text>
+        </Pressable>
+        <Pressable onPress={handleLogin} style={styles.primaryGhostButton}>
+          <Text style={styles.primaryGhostText}>Continue with Phone/Email</Text>
+        </Pressable>
+        <View style={styles.row}>
+          <Pressable onPress={handleLogin} style={styles.primaryButton}>
+            <Text style={styles.primaryButtonText}>Login</Text>
+          </Pressable>
+          <Link href="/register" asChild>
+            <Pressable style={styles.outlineButton}>
+              <Text style={styles.outlineButtonText}>Create Account</Text>
+            </Pressable>
+          </Link>
         </View>
       </View>
-      <View style={styles.formCard}>
-        <TextInput placeholder="Email" placeholderTextColor={colors.muted} style={styles.input} />
-        <TextInput placeholder="Password" placeholderTextColor={colors.muted} secureTextEntry style={styles.input} />
-        <Pressable onPress={handleLogin} style={styles.button}>
-          <Text style={styles.buttonText}>Log in</Text>
-        </Pressable>
-        <Link href="/register" style={styles.link}>
-          Create an account
-        </Link>
+
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>Terms</Text>
+        <Text style={styles.footerDot}>•</Text>
+        <Text style={styles.footerText}>Privacy</Text>
       </View>
     </View>
   );
@@ -52,110 +58,117 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    padding: 24,
+    justifyContent: 'space-between',
     backgroundColor: colors.background,
-    gap: 18,
+    paddingHorizontal: 24,
+    paddingTop: 72,
+    paddingBottom: 40,
   },
-  hero: {
-    gap: 14,
-    overflow: 'hidden',
+  heroCard: {
+    gap: 12,
     borderRadius: 30,
     borderWidth: 1,
     borderColor: colors.border,
     backgroundColor: colors.card,
     padding: 24,
   },
-  glowPrimary: {
-    position: 'absolute',
-    top: -60,
-    right: -40,
-    width: 160,
-    height: 160,
-    borderRadius: 80,
-    backgroundColor: colors.primary,
-    opacity: 0.16,
+  logoWrap: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(59, 130, 246, 0.18)',
   },
-  glowAccent: {
-    position: 'absolute',
-    bottom: -60,
-    left: -30,
-    width: 140,
-    height: 140,
-    borderRadius: 70,
+  logoInner: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
     backgroundColor: colors.accent,
-    opacity: 0.14,
   },
-  eyebrow: {
-    color: colors.accentSoft,
-    fontSize: 12,
-    fontWeight: '800',
-    letterSpacing: 1.1,
-  },
-  title: {
+  appName: {
     color: colors.text,
     fontSize: 34,
     fontWeight: '800',
-    lineHeight: 40,
     letterSpacing: -0.8,
   },
-  subtitle: {
-    color: colors.muted,
-    fontSize: 15,
-    lineHeight: 23,
-  },
-  statRow: {
-    flexDirection: 'row',
-    gap: 10,
-  },
-  statPill: {
-    flex: 1,
-    borderRadius: 18,
-    backgroundColor: colors.overlay,
-    padding: 12,
-  },
-  statValue: {
-    color: colors.text,
-    fontSize: 20,
-    fontWeight: '800',
-  },
-  statLabel: {
-    color: colors.muted,
-    marginTop: 2,
-    fontSize: 12,
+  tagline: {
+    color: colors.accentSoft,
+    fontSize: 18,
     fontWeight: '700',
   },
-  formCard: {
-    gap: 14,
-    borderRadius: 26,
+  copy: {
+    color: colors.muted,
+    fontSize: 15,
+    lineHeight: 24,
+  },
+  actionCard: {
+    gap: 12,
+    borderRadius: 28,
     borderWidth: 1,
     borderColor: colors.border,
     backgroundColor: colors.cardAlt,
     padding: 20,
   },
-  input: {
-    borderWidth: 1,
-    borderColor: colors.border,
-    borderRadius: 16,
-    backgroundColor: colors.backgroundSoft,
-    color: colors.text,
-    paddingHorizontal: 16,
+  secondaryButton: {
+    alignItems: 'center',
+    borderRadius: 18,
+    backgroundColor: colors.overlay,
     paddingVertical: 15,
   },
-  button: {
-    backgroundColor: colors.primary,
-    borderRadius: 16,
-    alignItems: 'center',
-    paddingVertical: 16,
-  },
-  buttonText: {
+  secondaryButtonText: {
     color: colors.text,
-    fontSize: 16,
+    fontWeight: '700',
+  },
+  primaryGhostButton: {
+    alignItems: 'center',
+    borderRadius: 18,
+    borderWidth: 1,
+    borderColor: colors.accent,
+    paddingVertical: 15,
+  },
+  primaryGhostText: {
+    color: colors.accentSoft,
     fontWeight: '800',
   },
-  link: {
-    color: colors.primarySoft,
-    textAlign: 'center',
+  row: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  primaryButton: {
+    flex: 1,
+    alignItems: 'center',
+    borderRadius: 18,
+    backgroundColor: colors.primary,
+    paddingVertical: 15,
+  },
+  primaryButtonText: {
+    color: colors.text,
+    fontWeight: '800',
+  },
+  outlineButton: {
+    flex: 1,
+    alignItems: 'center',
+    borderRadius: 18,
+    borderWidth: 1,
+    borderColor: colors.border,
+    paddingVertical: 15,
+  },
+  outlineButtonText: {
+    color: colors.text,
     fontWeight: '700',
+  },
+  footer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 10,
+  },
+  footerText: {
+    color: colors.muted,
+    fontSize: 13,
+  },
+  footerDot: {
+    color: colors.muted,
   },
 });

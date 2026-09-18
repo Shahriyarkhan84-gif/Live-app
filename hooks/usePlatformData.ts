@@ -1,38 +1,17 @@
-import { useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
-import {
-  adminModules,
-  creatorMetrics,
-  giftCatalog,
-  lessonRoadmap,
-  notificationFeed,
-  platformLayers,
-  platformMetrics,
-  quickActions,
-  reportQueue,
-  securityChecklist,
-  testingStages,
-  walletLedger,
-  walletMetrics,
-} from '@/constants/architecture';
+import { fetchPlatformData } from '@/services/mockApi';
 
 export function usePlatformData() {
-  return useMemo(
-    () => ({
-      adminModules,
-      creatorMetrics,
-      giftCatalog,
-      lessonRoadmap,
-      notificationFeed,
-      platformLayers,
-      platformMetrics,
-      quickActions,
-      reportQueue,
-      securityChecklist,
-      testingStages,
-      walletLedger,
-      walletMetrics,
-    }),
-    [],
-  );
+  const query = useQuery({
+    queryKey: ['platform-data'],
+    queryFn: fetchPlatformData,
+  });
+
+  return {
+    ...query.data,
+    isLoading: query.isLoading,
+    isRefetching: query.isRefetching,
+    refetch: query.refetch,
+  };
 }

@@ -7,24 +7,18 @@ import { colors } from '@/constants/colors';
 import { usePlatformData } from '@/hooks/usePlatformData';
 
 export default function HelpScreen() {
-  const { testingStages } = usePlatformData();
+  const { securityChecklist = [] } = usePlatformData();
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
       <Stack.Screen options={{ headerShown: true, title: 'Help' }} />
-      <Header title="Testing and launch help" subtitle="Keep quality gates visible before shipping auth, realtime, media, and payment features." />
-      <InfoListCard title="Testing stages" items={testingStages} />
+      <Header title="Help" subtitle="Support the app with secure onboarding, protected media flows, and wallet-aware operations." />
+      <InfoListCard title="Security and support guidance" items={securityChecklist} />
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-  content: {
-    padding: 20,
-    gap: 18,
-  },
+  screen: { flex: 1, backgroundColor: colors.background },
+  content: { gap: 18, padding: 20 },
 });

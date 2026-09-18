@@ -1,66 +1,77 @@
-# Live App
+# Auralis
 
-Expo Router prototype for a BIGO-like live streaming platform.
+Original global live-broadcasting mobile app built with Expo, React Native, TypeScript, and Expo Router.
 
-## Local Expo setup
+## Product direction
 
-1. Install Node.js and npm.
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Start Expo:
-   ```bash
-   npx expo start
-   ```
-4. Open the project in Expo Go with the QR code, or press:
-   - `a` for Android
-   - `i` for iOS
-   - `w` for web
+Auralis is an original blue-themed social live-broadcasting product with:
 
-## Expo Snack workflow
+- login and registration
+- home, discovery, go live, messages, and me navigation
+- country-based live discovery
+- category discovery
+- global host discovery
+- live room viewing
+- realtime messaging concepts
+- friends and mutual-follow flows
+- coins, gifts, wallet, earnings, and withdrawals
+- notifications, reports, moderation, analytics, admin, and n8n automation surfaces
 
-Use [snack.expo.dev](https://snack.expo.dev) for fast UI experiments, then move stable screens and interactions back into this local Expo project.
+## Architecture
 
-## Product architecture covered by the prototype
+- **Mobile**: Expo, React Native, TypeScript, Expo Router, React Query, Zustand
+- **Backend**: Node.js, NestJS, REST API, WebSocket
+- **Data**: PostgreSQL, Redis, S3-compatible object storage
+- **Streaming**: dedicated RTMP/WHIP ingestion with HLS/WebRTC playback
+- **Automation**: n8n for notifications, reports, analytics, moderation alerts, and admin alerts
 
-The app now reflects the full lesson roadmap for a live streaming platform:
+Important rules reflected in the prototype:
 
-- platform fundamentals and system architecture
-- database, cache, storage, and queue layers
-- auth, profiles, social graph, and live room creation
-- realtime video, chat, discovery, and viewer experience
-- gifts, wallet, creator earnings, and payments
-- notifications, moderation, admin, security, testing, and scaling
+- PostgreSQL and the backend are the source of truth for balances and withdrawals
+- Redis/WebSocket handle high-frequency realtime operations
+- n8n is used selectively for lower-frequency automation
+- n8n is not part of the video path
 
-## App routes
+## Main routes
 
-- `app/(auth)/` login and registration
-- `app/(tabs)/` home, discover, create, messages, and profile
-- `app/live/[roomId].tsx` live room experience
-- `app/search.tsx` discovery and recommendation concepts
-- `app/notifications.tsx` event feed concepts
-- `app/wallet.tsx` wallet and ledger concepts
-- `app/gift-store.tsx` monetization catalog concepts
-- `app/creator-dashboard.tsx` earnings overview
-- `app/admin.tsx` admin control surface
-- `app/settings.tsx` security checklist
-- `app/help.tsx` testing and launch checklist
-- `app/reports.tsx` moderation queue overview
+- `app/(auth)/login.tsx`
+- `app/(auth)/register.tsx`
+- `app/(tabs)/index.tsx`
+- `app/(tabs)/discover.tsx`
+- `app/(tabs)/create.tsx`
+- `app/(tabs)/messages.tsx`
+- `app/(tabs)/profile.tsx`
+- `app/live/[roomId].tsx`
+- `app/search.tsx`
+- `app/countries.tsx`
+- `app/categories.tsx`
+- `app/friends.tsx`
+- `app/notifications.tsx`
+- `app/wallet.tsx`
+- `app/earnings.tsx`
+- `app/reports.tsx`
+- `app/admin.tsx`
+- `app/analytics.tsx`
+- `app/automation.tsx`
 
-## Shared project structure
+## State and data
 
-- `components/` reusable cards, lists, media, and creator UI
-- `constants/` shared theme values plus architecture lesson data
-- `hooks/` mock auth, chat, live room, and architecture state
-- `services/` placeholder API contracts for product and backend domains
-- `eas.json` Expo Application Services build profiles
+- `providers/AppProviders.tsx` wires React Query
+- `stores/appStore.ts` stores auth and country selection with Zustand
+- `services/mockApi.ts` provides mock app data for the prototype
+- `constants/architecture.ts` contains the original product, discovery, wallet, analytics, and automation model
 
-## Useful commands
+## Run locally
 
-- `npx expo start`
-- `npx expo-doctor`
-- `npx expo install PACKAGE_NAME`
-- `npx expo install --fix`
-- `npx expo export --platform web`
-- `npx tsc --noEmit`
+```bash
+npm install
+npx expo start
+```
+
+Useful checks:
+
+```bash
+npx tsc --noEmit
+npx expo export --platform web
+npx expo-doctor
+```

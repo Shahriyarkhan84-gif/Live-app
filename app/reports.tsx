@@ -7,24 +7,18 @@ import { colors } from '@/constants/colors';
 import { usePlatformData } from '@/hooks/usePlatformData';
 
 export default function ReportsScreen() {
-  const { reportQueue } = usePlatformData();
+  const { reportQueue = [] } = usePlatformData();
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
       <Stack.Screen options={{ headerShown: true, title: 'Reports' }} />
-      <Header title="Reports and moderation" subtitle="Expose the review queue that protects rooms, creators, payments, and recorded content." />
-      <InfoListCard title="Moderation queue" items={reportQueue} />
+      <Header title="Reports" subtitle="User reports, moderation actions, automated alerts, and admin escalation flows." />
+      <InfoListCard title="Moderation and system reports" items={reportQueue} />
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-  content: {
-    padding: 20,
-    gap: 18,
-  },
+  screen: { flex: 1, backgroundColor: colors.background },
+  content: { gap: 18, padding: 20 },
 });

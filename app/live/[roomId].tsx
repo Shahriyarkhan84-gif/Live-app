@@ -1,22 +1,13 @@
 import { Stack, useLocalSearchParams } from 'expo-router';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { ChatBox } from '@/components/ChatBox';
 import { GiftButton } from '@/components/GiftButton';
-import { InfoListCard } from '@/components/InfoListCard';
+import { LiveBadge } from '@/components/LiveBadge';
 import { NotFoundState } from '@/components/NotFoundState';
-import { StatCard } from '@/components/StatCard';
-import { VideoPlayer } from '@/components/VideoPlayer';
 import { colors } from '@/constants/colors';
 import { useChat } from '@/hooks/useChat';
 import { useLiveRoom } from '@/hooks/useLiveRoom';
-
-const roomActions = [
-  { title: 'Follow and share', detail: 'Help discovery systems increase reach for strong streams.', meta: 'growth' },
-  { title: 'Moderation entry points', detail: 'Allow viewers to report, block, or mute abusive activity.', meta: 'safety' },
-  { title: 'Gift fanout', detail: 'Broadcast coin events to the room and creator earnings engine.', meta: 'economy' },
-  { title: 'Viewer analytics', detail: 'Capture watch time, retention, and category affinity signals.', meta: 'analytics' },
-];
 
 export default function LiveRoomScreen() {
   const { roomId } = useLocalSearchParams<{ roomId: string }>();
@@ -27,7 +18,7 @@ export default function LiveRoomScreen() {
   if (!room) {
     return (
       <>
-        <Stack.Screen options={{ headerShown: true, title: 'Room not found' }} />
+        <Stack.Screen options={{ headerShown: true, title: 'Live room' }} />
         <NotFoundState message="This live room is unavailable." />
       </>
     );
@@ -35,44 +26,53 @@ export default function LiveRoomScreen() {
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
-      <Stack.Screen options={{ title: room.title }} />
-      <VideoPlayer title={room.title} host={room.host} viewers={room.viewers} />
-      <View style={styles.metricsRow}>
-        <StatCard label="Category" value={room.category} tone="accent" />
-        <StatCard label="Viewers" value={room.viewers.toLocaleString()} tone="primary" />
-        <StatCard label="Gifts today" value="128" tone="danger" />
+      <Stack.Screen options={{ headerShown: true, title: room.hostName }} />
+      <View style={[styles.videoStage, { backgroundColor: room.thumbnailTone }]}>
+        <View style={styles.videoTopRow}>
+          <View style={styles.hostRow}>
+            <LiveBadge />
+            <Text style={styles.hostName}>{room.hostName}</Text>
+            <Text style={styles.hostMeta}>{room.countryFlag} {room.countryName}</Text>
+          </View>
+          <Text style={styles.viewerPill}>{room.viewerCount.toLocaleString()} viewers</Text>
+        </View>
+        <View style={styles.videoBottomRow}>
+          <Text style={styles.roomTitle}>{room.title}</Text>
+          <Text style={styles.roomMeta}>{room.category} · {room.liveDuration}</Text>
+        </View>
       </View>
-      <View style={styles.section}>
-        <Text style={styles.heading}>Live chat</Text>
-        <ChatBox messages={messages} />
+
+      <View style={styles.controlsRow}>
+        <Text style={styles.control}>Follow</Text>
+        <Text style={styles.control}>Gift</Text>
+        <Text style={styles.control}>Share</Text>
+        <Text style={styles.control}>More</Text>
       </View>
-      <GiftButton label="Send a gift" />
-      <InfoListCard title="In-room event flow" items={roomActions} />
+
+      <ChatBox messages={messages} />
+
+      <View style={styles.inputRow}>
+        <TextInput placeholder="Send a message" placeholderTextColor={colors.muted} style={styles.input} />
+        <GiftButton label="Send Gift" />
+      </View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-  content: {
-    padding: 20,
-    paddingBottom: 40,
-    gap: 18,
-  },
-  metricsRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
-  },
-  section: {
-    gap: 12,
-  },
-  heading: {
-    color: colors.text,
-    fontSize: 22,
-    fontWeight: '800',
-  },
+  screen: { flex: 1, backgroundColor: colors.background },
+  content: { gap: 16, padding: 20, paddingBottom: 40 },
+  videoStage: { height: 360, borderRadius: 30, padding: 18, justifyContent: 'space-between' },
+  videoTopRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', gap: 10 },
+  hostRow: { gap: 8 },
+  hostName: { color: colors.text, fontSize: 20, fontWeight: '800' },
+  hostMeta: { color: colors.text, fontSize: 13, fontWeight: '700' },
+  viewerPill: { borderRadius: 999, backgroundColor: 'rgba(7, 11, 20, 0.35)', color: colors.text, overflow: 'hidden', paddingHorizontal: 12, paddingVertical: 7, fontWeight: '700' },
+  videoBottomRow: { gap: 6 },
+  roomTitle: { color: colors.text, fontSize: 28, fontWeight: '800' },
+  roomMeta: { color: colors.text, fontSize: 14 },
+  controlsRow: { flexDirection: 'row', justifyContent: 'space-between', gap: 10 },
+  control: { flex: 1, overflow: 'hidden', borderRadius: 16, backgroundColor: colors.cardAlt, color: colors.text, paddingVertical: 12, textAlign: 'center', fontWeight: '700' },
+  inputRow: { gap: 12 },
+  input: { borderRadius: 18, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.cardAlt, color: colors.text, paddingHorizontal: 16, paddingVertical: 14 },
 });

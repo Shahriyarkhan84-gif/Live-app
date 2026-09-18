@@ -1,18 +1,36 @@
 import { useMemo } from 'react';
 
-const rooms = [
-  { id: 'music-lounge', title: 'Midnight Music Lounge', host: 'DJ Nova', category: 'Music', viewers: 1280 },
-  { id: 'gaming-arena', title: 'Ranked Gaming Arena', host: 'Pixel Kai', category: 'Gaming', viewers: 2140 },
-  { id: 'creator-talk', title: 'Creator Growth Talk', host: 'Mila Hart', category: 'Education', viewers: 860 },
-];
+import { useQuery } from '@tanstack/react-query';
+
+import { fetchLiveFeed } from '@/services/mockApi';
+import { useAppStore } from '@/stores/appStore';
 
 export function useLiveRoom() {
-  return useMemo(
-    () => ({
-      featuredRooms: rooms,
-      categories: ['Music', 'Gaming', 'Education', 'Lifestyle', 'Fitness'],
-      getRoomById: (roomId: string) => rooms.find((room) => room.id === roomId),
-    }),
-    [],
-  );
+  const selectedCountryCode = useAppStore((state) => state.selectedCountryCode);
+  const setSelectedCountryCode = useAppStore((state) => state.setSelectedCountryCode);
+
+  const query = useQuery({
+    queryKey: ['live-feed', selectedCountryCode],
+    queryFn: () => fetchLiveFeed(selectedCountryCode),
+  });
+
+  return useMemo(() => {
+    const data = query.data;
+
+    return {
+      selectedCountryCode,
+      setSelectedCountryCode,
+      countries: data?.countries ?? [],
+      categories: data?.categories ?? [],
+      countryLive: data?.countryLive ?? [],
+      followingLive: data?.followingLive ?? [],
+      popularLive: data?.popularLive ?? [],
+      recommended: data?.recommended ?? [],
+      allHosts: data?.allHosts ?? [],
+      getRoomById: (roomId: string) => data?.allHosts.find((room) => room.id === roomId),
+      isLoading: query.isLoading,
+      isRefetching: query.isRefetching,
+      refetch: query.refetch,
+    };
+  }, [query.data, query.isLoading, query.isRefetching, query.refetch, selectedCountryCode, setSelectedCountryCode]);
 }

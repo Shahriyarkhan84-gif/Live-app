@@ -7,19 +7,19 @@ import { StatCard } from '@/components/StatCard';
 import { colors } from '@/constants/colors';
 import { usePlatformData } from '@/hooks/usePlatformData';
 
-export default function NotificationsScreen() {
-  const { notificationFeed = [], homeMetrics = [] } = usePlatformData();
+export default function AnalyticsScreen() {
+  const { adminMetrics = [], analyticsCards = [] } = usePlatformData();
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
-      <Stack.Screen options={{ headerShown: true, title: 'Notifications' }} />
-      <Header title="Notifications" subtitle="Follower, mutual-follow, message, live, gift, withdrawal, security, and system alerts." />
+      <Stack.Screen options={{ headerShown: true, title: 'Analytics' }} />
+      <Header title="Analytics" subtitle="Daily and weekly reports for users, broadcasts, viewers, gifts, coins, earnings, and withdrawals." />
       <View style={styles.metricsRow}>
-        {homeMetrics.slice(0, 3).map((metric) => (
+        {adminMetrics.slice(0, 4).map((metric) => (
           <StatCard key={metric.label} label={metric.label} value={metric.value} tone={metric.tone} />
         ))}
       </View>
-      <InfoListCard title="Notification feed" items={notificationFeed} />
+      <InfoListCard title="Analytics cards" items={analyticsCards} />
     </ScrollView>
   );
 }
