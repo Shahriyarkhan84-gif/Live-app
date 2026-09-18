@@ -7,7 +7,7 @@ import { colors } from '@/constants/colors';
 import { usePlatformData } from '@/hooks/usePlatformData';
 
 export default function GiftStoreScreen() {
-  const { giftCatalog } = usePlatformData();
+  const { giftCatalog = [] } = usePlatformData();
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.content}>

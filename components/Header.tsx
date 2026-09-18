@@ -7,7 +7,7 @@ export function Header({ title, subtitle }: { title: string; subtitle: string })
     <View style={styles.container}>
       <View style={styles.badge}>
         <View style={styles.badgeDot} />
-        <Text style={styles.badgeText}>Live platform design</Text>
+        <Text style={styles.badgeText}>Auralis original live app</Text>
       </View>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.subtitle}>{subtitle}</Text>

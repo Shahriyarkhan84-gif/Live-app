@@ -4,6 +4,12 @@ export type StatusMetric = {
   tone?: 'primary' | 'accent' | 'danger';
 };
 
+export type Lesson = {
+  id: string;
+  title: string;
+  summary: string;
+};
+
 export type ActionItem = {
   title: string;
   description: string;
@@ -77,6 +83,15 @@ export const brand = {
   tagline: 'Watch. Connect. Broadcast.',
   shortDescription: 'An original blue-themed global live-broadcasting social app.',
 };
+
+export const lessonRoadmap: Lesson[] = [
+  { id: '01', title: 'Setup', summary: 'Project setup with Expo, backend, PostgreSQL, Redis, and n8n.' },
+  { id: '02', title: 'Auth', summary: 'Registration, login, verification, and secure sessions.' },
+  { id: '03', title: 'Discovery', summary: 'Home, discovery, countries, and categories.' },
+  { id: '04', title: 'Social', summary: 'Follow, mutual follow, friends, and private messaging.' },
+  { id: '05', title: 'Live', summary: 'Go live, live rooms, streaming, chat, and moderation.' },
+  { id: '06', title: 'Economy', summary: 'Coins, gifts, wallet, host earnings, and withdrawals.' },
+];
 
 export const countries: CountryOption[] = [
   { code: 'GB', name: 'United Kingdom', flag: '🇬🇧', liveCount: 184, topCategory: 'Music' },
@@ -190,6 +205,13 @@ export const walletLedger: ActivityItem[] = [
   { title: 'Gift sent', detail: 'Blue Comet x2 delivered in Pixel Sprint Arena.', meta: '-500 coins' },
   { title: 'Gift received', detail: 'Aurora Crown converted into host earnings.', meta: '+$120 pending' },
   { title: 'Withdrawal requested', detail: 'Payout submitted for manual review and signed processing.', meta: '$640 review' },
+];
+
+export const giftCatalog: ActivityItem[] = [
+  { title: 'Blue Comet', detail: 'Fast reaction gift for hype moments and chat momentum.', meta: '250 coins' },
+  { title: 'Aurora Crown', detail: 'Premium celebration gift for creator milestones.', meta: '900 coins' },
+  { title: 'Ocean Pulse', detail: 'Mid-tier support gift with layered room animation.', meta: '520 coins' },
+  { title: 'Skyline Beam', detail: 'Hero gift for leaderboard pushes and spotlight moments.', meta: '1,600 coins' },
 ];
 
 export const reportQueue: ActivityItem[] = [
